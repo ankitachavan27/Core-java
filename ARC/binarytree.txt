@@ -1,0 +1,54 @@
+
+
+public class Solution {
+
+    public static TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+        root.left = right;
+        root.right = left;
+        return root;
+    }
+
+    public static void printTree(TreeNode root) {
+        if (root == null) return;
+        System.out.print(root.val + " ");
+        printTree(root.left);
+        printTree(root.right);
+    }
+
+    public static void main(String[] args) {
+        // Construct the tree:
+        //      1
+        //     / \
+        //    2   3
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+        
+
+        System.out.println("Original Tree (Preorder): ");
+        printTree(root);
+
+        TreeNode inverted = invertTree(root);
+
+        System.out.println("\nInverted Tree (Preorder): ");
+        printTree(inverted);
+    }
+}
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    TreeNode(int val) {
+        this.val = val;
+        left = right = null;
+    }
+}
